@@ -16,7 +16,6 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-'use strict';
 
 import { Buffer } from 'buffer';
 import SaslMechanismBase, { SaslMechanismBaseOptions } from './sasl-mechanism-base.js';

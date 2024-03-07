@@ -58,7 +58,6 @@
  * @author Igor Ostapenko
  */
 /*eslint-disable*/
-'use strict';
 
 export { default as DataType } from './internals/DataType.js';
 import DataType from './internals/DataType.js';

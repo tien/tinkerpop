@@ -20,7 +20,6 @@
 /**
  * @author Serhiy Salo
  */
-'use strict';
 
 import { ok, strictEqual } from 'assert';
 import { Graph } from '../../lib/structure/graph.js';

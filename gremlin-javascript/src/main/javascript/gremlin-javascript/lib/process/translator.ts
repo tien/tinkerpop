@@ -16,7 +16,6 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-'use strict';
 
 import { Traversal } from './traversal.js';
 import Bytecode from './bytecode.js';

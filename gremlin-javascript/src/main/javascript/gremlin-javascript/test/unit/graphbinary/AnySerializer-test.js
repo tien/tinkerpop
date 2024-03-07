@@ -20,7 +20,6 @@
 /**
  * @author Igor Ostapenko
  */
-'use strict';
 
 import { ser_title, des_title } from './utils.js';
 import assert from 'assert';

@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { GraphTraversalSource } from '../process/graph-traversal.js';
 import { TraversalStrategies } from '../process/traversal-strategy.js';

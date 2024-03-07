@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { getUuid } from '../lib/utils.js';
 import DriverRemoteConnection from '../lib/driver/driver-remote-connection.js';

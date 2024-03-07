@@ -20,7 +20,6 @@
 /**
  * @author Igor Ostapenko
  */
-'use strict';
 
 import StringSerializerTestTemplate from './StringSerializerTestTemplate.js';
 

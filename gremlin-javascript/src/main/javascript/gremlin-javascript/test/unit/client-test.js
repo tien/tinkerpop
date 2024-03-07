@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import { strictEqual } from 'assert';
 import Client from '../../lib/driver/client.js';

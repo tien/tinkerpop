@@ -20,7 +20,6 @@
 /**
  * @author Igor Ostapenko
  */
-'use strict';
 
 import assert from 'assert';
 import { graphBinaryReader } from '../../../lib/structure/io/binary/GraphBinary.js';

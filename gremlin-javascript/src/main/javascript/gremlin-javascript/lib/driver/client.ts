@@ -16,7 +16,6 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-'use strict';
 
 import * as utils from '../utils.js';
 import Connection, { ConnectionOptions } from './connection.js';

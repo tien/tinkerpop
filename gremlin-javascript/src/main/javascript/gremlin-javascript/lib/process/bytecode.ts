@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { Traversal } from './traversal.js';
 
@@ -71,16 +70,16 @@ export default class Bytecode {
     if (name === undefined) {
       throw new Error('Name is not defined');
     }
-    this.stepInstructions.push(Bytecode._generateInstruction(name, values ?? []));
+    this.stepInstructions.push(Bytecode._generateInstruction(name, values));
     return this;
   }
 
-  private static _generateInstruction(name: string, values: any[]) {
+  private static _generateInstruction(name: string, values?: any[]) {
     const length = (values ? values.length : 0) + 1;
     const instruction = new Array(length);
     instruction[0] = name;
     for (let i = 1; i < length; i++) {
-      const val = values[i - 1];
+      const val = values?.[i - 1];
       if (val instanceof Traversal && val.graph != null) {
         throw new Error(
           `The child traversal of ${val} was not spawned anonymously - use ` +

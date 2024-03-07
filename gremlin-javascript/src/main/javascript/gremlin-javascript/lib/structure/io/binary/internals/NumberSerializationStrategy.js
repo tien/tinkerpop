@@ -20,7 +20,6 @@
 /**
  * @author Igor Ostapenko
  */
-'use strict';
 
 // Based on GraphSON NumberSerializer.serialize().
 // It's tested by AnySerializer.serialize() tests.

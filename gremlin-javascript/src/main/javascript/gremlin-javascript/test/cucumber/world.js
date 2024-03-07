@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { setWorldConstructor, Before, BeforeAll, AfterAll } from 'cucumber';
 import { getConnection } from '../helper.js';

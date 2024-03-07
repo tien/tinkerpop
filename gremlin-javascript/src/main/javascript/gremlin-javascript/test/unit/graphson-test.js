@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { equal, strictEqual, ok, deepStrictEqual } from 'assert';
 import { Vertex } from '../../lib/structure/graph.js';

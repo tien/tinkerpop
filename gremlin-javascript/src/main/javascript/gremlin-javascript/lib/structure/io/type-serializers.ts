@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import * as t from '../../process/traversal.js';
 import * as ts from '../../process/traversal-strategy.js';
@@ -479,7 +478,7 @@ export class SetSerializer extends ArraySerializer {
     super('g:Set');
   }
 
-  deserialize(obj) {
+  deserialize(obj: SerializedValue): any {
     return new Set(super.deserialize(obj));
   }
 }

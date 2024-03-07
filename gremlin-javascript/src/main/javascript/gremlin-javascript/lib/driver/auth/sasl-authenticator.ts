@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import Authenticator, { AuthenticatorOptions } from './authenticator.js';
 

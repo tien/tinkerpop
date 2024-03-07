@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import Bytecode from '../process/bytecode.js';
 import { TraversalStrategy } from '../process/traversal-strategy.js';

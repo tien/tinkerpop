@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import Mocha from 'mocha';
 import { fail, strictEqual, ok } from 'assert';

@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { Buffer } from 'buffer';
 import { EventEmitter } from 'eventemitter3';

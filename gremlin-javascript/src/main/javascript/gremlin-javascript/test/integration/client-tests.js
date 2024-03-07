@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import { ok, strictEqual, fail } from 'assert';
 import Bytecode from '../../lib/process/bytecode.js';

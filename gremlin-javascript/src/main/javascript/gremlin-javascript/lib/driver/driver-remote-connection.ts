@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import * as rcModule from './remote-connection.js';
 const RemoteConnection = rcModule.RemoteConnection;

@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 export type AuthenticatorOptions = {
   username?: string;

@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { Given, Then, When, setDefaultTimeout } from 'cucumber';
 // Setting Cucumber timeout to 10s for Floating Errors on Windows on GitHub Actions

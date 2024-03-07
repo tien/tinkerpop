@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { assert } from 'chai';
 import { VertexProperty, Property, Vertex, Edge, Path } from '../../lib/structure/graph.js';

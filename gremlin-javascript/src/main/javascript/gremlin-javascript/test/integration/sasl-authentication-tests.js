@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import { ok, fail } from 'assert';
 import AssertionError from 'assert';

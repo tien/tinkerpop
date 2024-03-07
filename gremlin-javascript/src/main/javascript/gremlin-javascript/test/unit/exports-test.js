@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { ok, strictEqual } from 'assert';
 import * as glvModule from '../../lib/index.js';

@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 /**
  * Represents an error obtained from the server.

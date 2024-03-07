@@ -21,7 +21,6 @@
  * @author Jorge Bay Gondra
  */
 
-'use strict';
 
 import { Graph } from '../structure/graph.js';
 import Bytecode from './bytecode.js';

@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import { strictEqual } from 'assert';
 import { TraversalStrategies, OptionsStrategy, ConnectiveStrategy } from '../../lib/process/traversal-strategy.js';

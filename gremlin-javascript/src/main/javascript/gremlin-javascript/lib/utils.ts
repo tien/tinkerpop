@@ -21,7 +21,6 @@
  * A module containing any utility functions.
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import * as uuid from 'uuid';
 

@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { ok, deepStrictEqual, strictEqual } from 'assert';
 import ResultSet from '../../lib/driver/result-set.js';

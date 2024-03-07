@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import { equal, ok, strictEqual } from 'assert';
 import {

@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { RemoteConnection } from '../driver/remote-connection.js';
 import { Traversal } from './traversal.js';

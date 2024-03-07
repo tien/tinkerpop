@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-'use strict';
 
 import Authenticator from './authenticator.js';
 import SaslMechanismPlain from './mechanisms/sasl-mechanism-plain.js';

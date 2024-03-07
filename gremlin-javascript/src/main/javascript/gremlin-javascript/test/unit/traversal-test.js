@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { ok, strictEqual, deepEqual, doesNotThrow, throws, fail } from 'assert';
 import { expect } from 'chai';

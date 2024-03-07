@@ -21,7 +21,6 @@
  * @author : Liu Jianping
  */
 
-'use strict';
 
 import { ok, strictEqual } from 'assert';
 import Bytecode from '../../lib/process/bytecode.js';

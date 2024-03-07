@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import { EnumValue, Traversal, cardinality } from './traversal.js';
 import { Transaction } from './transaction.js';

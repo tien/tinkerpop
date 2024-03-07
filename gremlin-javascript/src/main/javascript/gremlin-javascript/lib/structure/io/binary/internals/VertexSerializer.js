@@ -20,7 +20,6 @@
 /**
  * @author Igor Ostapenko
  */
-'use strict';
 
 import { Buffer } from 'buffer';
 import { Vertex } from '../../../graph.js';

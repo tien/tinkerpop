@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import * as utils from '../utils.js';
 const emptyMap = Object.freeze(new utils.ImmutableMap());

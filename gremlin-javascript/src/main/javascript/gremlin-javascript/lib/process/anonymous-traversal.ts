@@ -17,8 +17,6 @@
  *  under the License.
  */
 
-'use strict';
-
 import { GraphTraversalSource } from './graph-traversal.js';
 import { TraversalStrategies } from './traversal-strategy.js';
 import { Graph } from '../structure/graph.js';
@@ -37,7 +35,6 @@ export default class AnonymousTraversalSource {
    */
   constructor(readonly traversalSourceClass: typeof GraphTraversalSource) {}
 
-  /**
   static traversal(traversalSourceClass: typeof GraphTraversalSource) {
     return new AnonymousTraversalSource(traversalSourceClass || GraphTraversalSource);
   }

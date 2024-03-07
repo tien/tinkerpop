@@ -16,7 +16,6 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-'use strict';
 
 import { RemoteConnection, RemoteStrategy } from '../driver/remote-connection.js';
 import Bytecode from './bytecode.js';

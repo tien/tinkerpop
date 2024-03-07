@@ -20,7 +20,6 @@
 /**
  * @author Jorge Bay Gondra
  */
-'use strict';
 
 import * as t from './process/traversal.js';
 import * as gt from './process/graph-traversal.js';
