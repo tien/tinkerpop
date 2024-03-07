@@ -52,6 +52,7 @@
   },
   "scripts": {
     "build": "tsc --build tsconfig.json",
+    "prepublishOnly": "npm run build",
     "test": "npm run unit-test && npm run integration-test",
     "unit-test": "cross-env TS_NODE_PROJECT='tsconfig.test.json' mocha test/unit/*",
     "integration-test": "npm run integration-test-graphson30 && npm run integration-test-graphbinary",
