@@ -21,6 +21,6 @@
  * @author Igor Ostapenko
  */
 
-import ArraySerializerTestTemplate from './ArraySerializerTestTemplate.js';
+import SetSerializerTestTemplate from './SetSerializerTestTemplate.js';
 
-ArraySerializerTestTemplate({ ID: 0x0b, name: 'Set' });
+SetSerializerTestTemplate({ ID: 0x0b, name: 'Set' });
