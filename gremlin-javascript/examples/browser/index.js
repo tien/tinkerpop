@@ -25,12 +25,7 @@ import { createRandomColorGenerator } from "./utils";
 const randomColor = createRandomColorGenerator();
 
 const g = gremlin.process.AnonymousTraversalSource.traversal().withRemote(
-  new gremlin.driver.DriverRemoteConnection("ws://localhost:8182/gremlin", {
-    authenticator: new gremlin.driver.auth.PlainTextSaslAuthenticator(
-      "admin",
-      "administrator"
-    ),
-  })
+  new gremlin.driver.DriverRemoteConnection("ws://localhost:8182/gremlin")
 );
 
 const [vertices, edges] = await Promise.all([
