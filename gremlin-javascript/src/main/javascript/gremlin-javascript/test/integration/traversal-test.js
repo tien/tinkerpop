@@ -21,8 +21,8 @@
  * @author Jorge Bay Gondra
  */
 
-import { fail, strictEqual, ok } from 'assert';
-import { AssertionError } from 'assert';
+import assert from 'assert';
+import assert_1 from 'assert';
 import { Vertex } from '../../lib/structure/graph.js';
 import AnonymousTraversal from '../../lib/process/anonymous-traversal.js';
 import { GraphTraversalSource, GraphTraversal, statics } from '../../lib/process/graph-traversal.js';
@@ -86,11 +86,11 @@ describe('Traversal', function () {
         .V()
         .toList()
         .then(function () {
-          fail('there is no server so an error should have occurred');
+          assert.fail('there is no server so an error should have occurred');
         })
         .catch(function (err) {
-          if (err instanceof AssertionError) throw err;
-          strictEqual(err.code, 'ECONNREFUSED');
+          if (err instanceof assert_1.AssertionError) throw err;
+          assert.strictEqual(err.code, 'ECONNREFUSED');
         });
     });
   });
@@ -101,9 +101,9 @@ describe('Traversal', function () {
         .V()
         .toList()
         .then(function (list) {
-          ok(list);
-          strictEqual(list.length, 6);
-          list.forEach((v) => ok(v instanceof Vertex));
+          assert.ok(list);
+          assert.strictEqual(list.length, 6);
+          list.forEach((v) => assert.ok(v instanceof Vertex));
         });
     });
   });
@@ -112,13 +112,13 @@ describe('Traversal', function () {
       var g = traversal().withRemote(connection);
       var t = g.V().count();
       return t.next().then(function (item1) {
-        ok(item1);
-        strictEqual(item1.value, 6);
+        assert.ok(item1);
+        assert.strictEqual(item1.value, 6);
         t.clone()
           .next()
           .then(function (item2) {
-            ok(item2);
-            strictEqual(item2.value, 6);
+            assert.ok(item2);
+            assert.strictEqual(item2.value, 6);
           });
       });
     });
@@ -130,19 +130,19 @@ describe('Traversal', function () {
       return t
         .hasNext()
         .then(function (more) {
-          ok(more);
-          strictEqual(more, true);
+          assert.ok(more);
+          assert.strictEqual(more, true);
           return t.next();
         })
         .then(function (item) {
-          strictEqual(item.done, false);
-          strictEqual(typeof item.value, 'number');
+          assert.strictEqual(item.done, false);
+          assert.strictEqual(typeof item.value, 'number');
           return t.next();
         })
         .then(function (item) {
-          ok(item);
-          strictEqual(item.done, true);
-          strictEqual(item.value, null);
+          assert.ok(item);
+          assert.strictEqual(item.done, true);
+          assert.strictEqual(item.value, null);
         });
     });
   });
@@ -156,8 +156,8 @@ describe('Traversal', function () {
         .map(() => 'it.get()[1]')
         .toList()
         .then(function (s) {
-          ok(s);
-          strictEqual(s[0], 'a');
+          assert.ok(s);
+          assert.strictEqual(s[0], 'a');
         });
     });
   });
@@ -170,9 +170,9 @@ describe('Traversal', function () {
         .values('name')
         .toList()
         .then(function (list) {
-          ok(list);
-          strictEqual(list.length, 1);
-          strictEqual(list[0], 'marko');
+          assert.ok(list);
+          assert.strictEqual(list.length, 1);
+          assert.strictEqual(list[0], 'marko');
         });
     });
 
@@ -184,9 +184,9 @@ describe('Traversal', function () {
         .values('name')
         .toList()
         .then(function (list) {
-          ok(list);
-          strictEqual(list.length, 1);
-          strictEqual(list[0], 'marko');
+          assert.ok(list);
+          assert.strictEqual(list.length, 1);
+          assert.strictEqual(list[0], 'marko');
         });
     });
   });
@@ -204,11 +204,11 @@ describe('Traversal', function () {
         .by(__.valueMap('name'))
         .toList()
         .then(function (list) {
-          ok(list);
-          strictEqual(list.length, 1);
-          strictEqual(list[0].objects[0].get('name')[0], 'marko');
-          strictEqual(list[0].objects[1].get('name')[0], 'vadas');
-          strictEqual(list[0].objects[2].get('name')[0], 'marko');
+          assert.ok(list);
+          assert.strictEqual(list.length, 1);
+          assert.strictEqual(list[0].objects[0].get('name')[0], 'marko');
+          assert.strictEqual(list[0].objects[1].get('name')[0], 'vadas');
+          assert.strictEqual(list[0].objects[2].get('name')[0], 'marko');
         });
     });
   });
@@ -222,20 +222,20 @@ describe('Traversal', function () {
         .next()
         .then(
           function (item1) {
-            ok(item1);
-            strictEqual(item1.value, 4);
+            assert.ok(item1);
+            assert.strictEqual(item1.value, 4);
           },
-          (err) => fail('tanked: ' + err),
+          (err) => assert.fail('tanked: ' + err),
         );
       g.E()
         .count()
         .next()
         .then(
           function (item1) {
-            ok(item1);
-            strictEqual(item1.value, 0);
+            assert.ok(item1);
+            assert.strictEqual(item1.value, 0);
           },
-          (err) => fail('tanked: ' + err),
+          (err) => assert.fail('tanked: ' + err),
         );
       g.V()
         .label()
@@ -244,10 +244,10 @@ describe('Traversal', function () {
         .next()
         .then(
           function (item1) {
-            ok(item1);
-            strictEqual(item1.value, 1);
+            assert.ok(item1);
+            assert.strictEqual(item1.value, 1);
           },
-          (err) => fail('tanked: ' + err),
+          (err) => assert.fail('tanked: ' + err),
         );
       g.V()
         .label()
@@ -255,10 +255,10 @@ describe('Traversal', function () {
         .next()
         .then(
           function (item1) {
-            ok(item1);
-            strictEqual(item1.value, 'person');
+            assert.ok(item1);
+            assert.strictEqual(item1.value, 'person');
           },
-          (err) => fail('tanked: ' + err),
+          (err) => assert.fail('tanked: ' + err),
         );
     });
     it('should allow ReadOnlyStrategy', function () {
@@ -267,8 +267,8 @@ describe('Traversal', function () {
         .addV()
         .iterate()
         .then(
-          () => fail('should have tanked'),
-          (err) => ok(err),
+          () => assert.fail('should have tanked'),
+          (err) => assert.ok(err),
         );
     });
     it('should allow ReservedKeysVerificationStrategy', function () {
@@ -278,8 +278,8 @@ describe('Traversal', function () {
         .property('id', "please-don't-use-id")
         .iterate()
         .then(
-          () => fail('should have tanked'),
-          (err) => ok(err),
+          () => assert.fail('should have tanked'),
+          (err) => assert.ok(err),
         );
     });
     it('should allow EdgeLabelVerificationStrategy', function () {
@@ -289,16 +289,16 @@ describe('Traversal', function () {
         .count()
         .next()
         .then(function (item1) {
-          ok(item1);
-          strictEqual(item1.value, 6);
+          assert.ok(item1);
+          assert.strictEqual(item1.value, 6);
         });
       return g
         .V()
         .out()
         .iterate()
         .then(
-          () => fail('should have tanked'),
-          (err) => strictEqual(err.statusCode, 500),
+          () => assert.fail('should have tanked'),
+          (err) => assert.strictEqual(err.statusCode, 500),
         );
     });
     it('should allow with_(evaluationTimeout,10)', function () {
@@ -308,8 +308,8 @@ describe('Traversal', function () {
         .repeat(__.both())
         .iterate()
         .then(
-          () => fail('should have tanked'),
-          (err) => strictEqual(err.statusCode, 598),
+          () => assert.fail('should have tanked'),
+          (err) => assert.strictEqual(err.statusCode, 598),
         );
     });
     it('should allow SeedStrategy', function () {
@@ -323,10 +323,10 @@ describe('Traversal', function () {
         .next()
         .then(
           function (item1) {
-            ok(item1);
-            strictEqual(item1.value, 1);
+            assert.ok(item1);
+            assert.strictEqual(item1.value, 1);
           },
-          (err) => fail('tanked: ' + err),
+          (err) => assert.fail('tanked: ' + err),
         );
     });
   });
@@ -336,12 +336,12 @@ describe('Traversal', function () {
       const tx = g.tx();
       const gtx = tx.begin();
       const result = await g.V().count().next();
-      strictEqual(6, result.value);
+      assert.strictEqual(6, result.value);
       try {
         await tx.commit();
-        fail('should throw error');
+        assert.fail('should throw error');
       } catch (err) {
-        strictEqual('Server error: Graph does not support transactions (500)', err.message);
+        assert.strictEqual('Server error: Graph does not support transactions (500)', err.message);
       }
     });
     it('should throw exception on rollback if graph not support tx', async function () {
@@ -350,9 +350,9 @@ describe('Traversal', function () {
       tx.begin();
       try {
         await tx.rollback();
-        fail('should throw error');
+        assert.fail('should throw error');
       } catch (err) {
-        strictEqual('Server error: Graph does not support transactions (500)', err.message);
+        assert.strictEqual('Server error: Graph does not support transactions (500)', err.message);
       }
     });
   });
@@ -382,20 +382,20 @@ describe('Traversal', function () {
 
       let r = await gtx.V().count().next();
       // assert within the transaction....
-      ok(r);
-      strictEqual(r.value, 2);
+      assert.ok(r);
+      assert.strictEqual(r.value, 2);
 
       // now commit changes to test outside of the transaction
       await tx.commit();
 
       r = await g.V().count().next();
-      ok(r);
-      strictEqual(r.value, 2);
+      assert.ok(r);
+      assert.strictEqual(r.value, 2);
       // connection closing async, so need to wait
       while (tx._sessionBasedConnection.isOpen) {
         await new Promise((resolve) => setTimeout(resolve, 10));
       }
-      ok(!tx._sessionBasedConnection.isOpen);
+      assert.ok(!tx._sessionBasedConnection.isOpen);
     });
   });
   describe('support remote transactions - rollback', function () {
@@ -424,20 +424,20 @@ describe('Traversal', function () {
 
       let r = await gtx.V().count().next();
       // assert within the transaction....
-      ok(r);
-      strictEqual(r.value, 2);
+      assert.ok(r);
+      assert.strictEqual(r.value, 2);
 
       // now rollback changes to test outside of the transaction
       await tx.rollback();
 
       r = await g.V().count().next();
-      ok(r);
-      strictEqual(r.value, 0);
+      assert.ok(r);
+      assert.strictEqual(r.value, 0);
       // connection closing async, so need to wait
       while (tx._sessionBasedConnection.isOpen) {
         await new Promise((resolve) => setTimeout(resolve, 10));
       }
-      ok(!tx._sessionBasedConnection.isOpen);
+      assert.ok(!tx._sessionBasedConnection.isOpen);
     });
   });
 });

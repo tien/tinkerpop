@@ -18,7 +18,7 @@
  */
 
 
-import { ok, strictEqual, fail } from 'assert';
+import assert from 'assert';
 import Bytecode from '../../lib/process/bytecode.js';
 import { Vertex } from '../../lib/structure/graph.js';
 import { getClient } from '../helper.js';
@@ -37,44 +37,44 @@ describe('Client', function () {
   describe('#submit()', function () {
     it('should send bytecode', function () {
       return client.submit(new Bytecode().addStep('V', []).addStep('tail', [])).then(function (result) {
-        ok(result);
-        strictEqual(result.length, 1);
-        ok(result.first().object instanceof Vertex);
+        assert.ok(result);
+        assert.strictEqual(result.length, 1);
+        assert.ok(result.first().object instanceof Vertex);
       });
     });
     it('should send and parse a script', function () {
       return client.submit('g.V().tail()').then(function (result) {
-        ok(result);
-        strictEqual(result.length, 1);
-        ok(result.first() instanceof Vertex);
+        assert.ok(result);
+        assert.strictEqual(result.length, 1);
+        assert.ok(result.first() instanceof Vertex);
       });
     });
     it('should send and parse a script with bindings', function () {
       return client.submit('x + x', { x: 3 }).then(function (result) {
-        ok(result);
-        strictEqual(result.first(), 6);
+        assert.ok(result);
+        assert.strictEqual(result.first(), 6);
       });
     });
     it('should send and parse a script with non-native javascript bindings', function () {
       return client.submit('card.class.simpleName + ":" + card', { card: cardinality.set }).then(function (result) {
-        ok(result);
-        strictEqual(result.first(), 'Cardinality:set');
+        assert.ok(result);
+        assert.strictEqual(result.first(), 'Cardinality:set');
       });
     });
 
     it('should retrieve the attributes', () => {
       return client.submit(new Bytecode().addStep('V', []).addStep('tail', [])).then((rs) => {
-        ok(rs.attributes instanceof Map);
-        ok(rs.attributes.get('host'));
+        assert.ok(rs.attributes instanceof Map);
+        assert.ok(rs.attributes.get('host'));
       });
     });
 
     it('should handle Vertex properties for bytecode request', function () {
       return client.submit(new Bytecode().addStep('V', [1])).then(function (result) {
-        ok(result);
-        strictEqual(result.length, 1);
+        assert.ok(result);
+        assert.strictEqual(result.length, 1);
         const vertex = result.first().object;
-        ok(vertex instanceof Vertex);
+        assert.ok(vertex instanceof Vertex);
         let age, name;
         if (vertex.properties instanceof Array) {
           age = vertex.properties[1];
@@ -83,8 +83,8 @@ describe('Client', function () {
           age = vertex.properties.age[0];
           name = vertex.properties.name[0];
         }
-        strictEqual(age.value, 29);
-        strictEqual(name.value, 'marko');
+        assert.strictEqual(age.value, 29);
+        assert.strictEqual(name.value, 'marko');
       });
     });
 
@@ -92,20 +92,20 @@ describe('Client', function () {
       return client
         .submit(new Bytecode().addStep('V', [1]), null, { materializeProperties: 'tokens' })
         .then(function (result) {
-          ok(result);
-          strictEqual(result.length, 1);
+          assert.ok(result);
+          assert.strictEqual(result.length, 1);
           const vertex = result.first().object;
-          ok(vertex instanceof Vertex);
-          ok(vertex.properties === undefined || vertex.properties.length === 0);
+          assert.ok(vertex instanceof Vertex);
+          assert.ok(vertex.properties === undefined || vertex.properties.length === 0);
         });
     });
 
     it('should handle Vertex properties for gremlin request', function () {
       return client.submit('g.V(1)').then(function (result) {
-        ok(result);
-        strictEqual(result.length, 1);
+        assert.ok(result);
+        assert.strictEqual(result.length, 1);
         const vertex = result.first();
-        ok(vertex instanceof Vertex);
+        assert.ok(vertex instanceof Vertex);
         let age, name;
         if (vertex.properties instanceof Array) {
           age = vertex.properties[1];
@@ -114,18 +114,18 @@ describe('Client', function () {
           age = vertex.properties.age[0];
           name = vertex.properties.name[0];
         }
-        strictEqual(age.value, 29);
-        strictEqual(name.value, 'marko');
+        assert.strictEqual(age.value, 29);
+        assert.strictEqual(name.value, 'marko');
       });
     });
 
     it('should skip Vertex properties for gremlin request with tokens', function () {
       return client.submit('g.with("materializeProperties", "tokens").V(1)').then(function (result) {
-        ok(result);
-        strictEqual(result.length, 1);
+        assert.ok(result);
+        assert.strictEqual(result.length, 1);
         const vertex = result.first();
-        ok(vertex instanceof Vertex);
-        ok(vertex.properties === undefined || vertex.properties.length === 0);
+        assert.ok(vertex instanceof Vertex);
+        assert.ok(vertex.properties === undefined || vertex.properties.length === 0);
       });
     });
 
@@ -135,8 +135,8 @@ describe('Client', function () {
 
       const result = await crewClient.submit('g.V(7)');
 
-      ok(result);
-      strictEqual(result.length, 1);
+      assert.ok(result);
+      assert.strictEqual(result.length, 1);
       const vertex = result.first();
 
       assertVertexProperties(vertex);
@@ -150,8 +150,8 @@ describe('Client', function () {
 
       const result = await crewClient.submit(new Bytecode().addStep('V', [7]));
 
-      ok(result);
-      strictEqual(result.length, 1);
+      assert.ok(result);
+      assert.strictEqual(result.length, 1);
       const vertex = result.first().object;
 
       assertVertexProperties(vertex);
@@ -170,9 +170,9 @@ describe('Client', function () {
       });
 
       readable.on('end', () => {
-        strictEqual(calls, 2); // limit of 3 with batchSize of 2 should be two function calls
-        strictEqual(output.length, 3);
-        ok(output[0] instanceof Vertex);
+        assert.strictEqual(calls, 2); // limit of 3 with batchSize of 2 should be two function calls
+        assert.strictEqual(output.length, 3);
+        assert.ok(output[0] instanceof Vertex);
         done();
       });
     });
@@ -187,32 +187,32 @@ describe('Client', function () {
         result.toArray().forEach((v) => output.push(v));
       }
 
-      strictEqual(calls, 2); // limit of 3 with batchSize of 2 should be two function calls
-      strictEqual(output.length, 3);
-      ok(output[0] instanceof Vertex);
+      assert.strictEqual(calls, 2); // limit of 3 with batchSize of 2 should be two function calls
+      assert.strictEqual(output.length, 3);
+      assert.ok(output[0] instanceof Vertex);
     });
 
     it('should get error for malformed requestId for script stream', async () => {
       try {
         const readable = client.stream('g.V()', {}, { requestId: 'malformed' });
         for await (const result of readable) {
-          fail('malformed requestId should throw');
+          assert.fail('malformed requestId should throw');
         }
       } catch (e) {
-        ok(e);
-        ok(e.message);
-        ok(e.message.includes('is not a valid UUID.'));
+        assert.ok(e);
+        assert.ok(e.message);
+        assert.ok(e.message.includes('is not a valid UUID.'));
       }
     });
 
     it('should get error for malformed requestId for script submit', async () => {
       try {
         await client.submit('g.V()', {}, { requestId: 'malformed' });
-        fail('malformed requestId should throw');
+        assert.fail('malformed requestId should throw');
       } catch (e) {
-        ok(e);
-        ok(e.message);
-        ok(e.message.includes('is not a valid UUID.'));
+        assert.ok(e);
+        assert.ok(e.message);
+        assert.ok(e.message.includes('is not a valid UUID.'));
       }
     });
 
@@ -220,23 +220,23 @@ describe('Client', function () {
       try {
         const readable = client.stream(new Bytecode().addStep('V', []), {}, { requestId: 'malformed' });
         for await (const result of readable) {
-          fail('malformed requestId should throw');
+          assert.fail('malformed requestId should throw');
         }
       } catch (e) {
-        ok(e);
-        ok(e.message);
-        ok(e.message.includes('is not a valid UUID.'));
+        assert.ok(e);
+        assert.ok(e.message);
+        assert.ok(e.message.includes('is not a valid UUID.'));
       }
     });
 
     it('should get error for malformed requestId for bytecode submit', async () => {
       try {
         await client.submit(new Bytecode().addStep('V', []), {}, { requestId: 'malformed' });
-        fail('malformed requestId should throw');
+        assert.fail('malformed requestId should throw');
       } catch (e) {
-        ok(e);
-        ok(e.message);
-        ok(e.message.includes('is not a valid UUID.'));
+        assert.ok(e);
+        assert.ok(e.message);
+        assert.ok(e.message.includes('is not a valid UUID.'));
       }
     });
 
@@ -261,7 +261,7 @@ describe('Client', function () {
 
       await closingClient.close();
       await pendingPromise;
-      strictEqual(isRejected, true);
+      assert.strictEqual(isRejected, true);
     });
 
     it('should end streams on traversals if connection closes', async () => {
@@ -280,30 +280,30 @@ describe('Client', function () {
         // Consume the stream
       }
 
-      strictEqual(isRejected, true);
+      assert.strictEqual(isRejected, true);
     });
   });
 });
 
 function assertVertexProperties(vertex) {
-  ok(vertex instanceof Vertex);
+  assert.ok(vertex instanceof Vertex);
   let locations;
   if (vertex.properties instanceof Array) {
     locations = vertex.properties.filter((p) => p.key == 'location');
   } else {
     locations = vertex.properties.location;
   }
-  strictEqual(locations.length, 3);
+  assert.strictEqual(locations.length, 3);
 
   const vertexProperty = locations[0];
-  strictEqual(vertexProperty.value, 'centreville');
+  assert.strictEqual(vertexProperty.value, 'centreville');
   if (vertexProperty.properties instanceof Array) {
-    strictEqual(vertexProperty.properties[0].key, 'startTime');
-    strictEqual(vertexProperty.properties[0].value, 1990);
-    strictEqual(vertexProperty.properties[1].key, 'endTime');
-    strictEqual(vertexProperty.properties[1].value, 2000);
+    assert.strictEqual(vertexProperty.properties[0].key, 'startTime');
+    assert.strictEqual(vertexProperty.properties[0].value, 1990);
+    assert.strictEqual(vertexProperty.properties[1].key, 'endTime');
+    assert.strictEqual(vertexProperty.properties[1].value, 2000);
   } else {
-    strictEqual(vertexProperty.properties.startTime, 1990);
-    strictEqual(vertexProperty.properties.endTime, 2000);
+    assert.strictEqual(vertexProperty.properties.startTime, 1990);
+    assert.strictEqual(vertexProperty.properties.endTime, 2000);
   }
 }

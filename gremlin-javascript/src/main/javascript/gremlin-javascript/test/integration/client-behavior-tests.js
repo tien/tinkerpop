@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-import { equal, ok, strictEqual } from 'assert';
+import assert from 'assert';
 import {
   getGremlinSocketServerClient,
   getGremlinSocketServerSettings,
@@ -41,25 +41,25 @@ describe('Client', function () {
     it('should reconnect after server closes connection', async function () {
       let connectionClosed = false;
       await client.submit('1', null, { requestId: settings.CLOSE_CONNECTION_REQUEST_ID }).catch(function (error) {
-        equal(error.toString(), 'Error: Connection has been closed.');
+        assert.equal(error.toString(), 'Error: Connection has been closed.');
         connectionClosed = true;
       });
 
-      equal(connectionClosed, true);
+      assert.equal(connectionClosed, true);
 
       let result = await client.submit('1', null, { requestId: settings.SINGLE_VERTEX_REQUEST_ID });
-      ok(result);
+      assert.ok(result);
     });
     it('should include user agent in handshake request', async function () {
       let result = await client.submit('1', null, { requestId: settings.USER_AGENT_REQUEST_ID });
 
-      strictEqual(result.first(), await getUserAgent());
+      assert.strictEqual(result.first(), await getUserAgent());
     });
     it('should not include user agent in handshake request if disabled', async function () {
       let noUserAgentClient = getGremlinSocketServerClientNoUserAgent('gmodern');
       let result = await noUserAgentClient.submit('1', null, { requestId: settings.USER_AGENT_REQUEST_ID });
 
-      strictEqual(result.first(), '');
+      assert.strictEqual(result.first(), '');
 
       await noUserAgentClient.close();
     });
@@ -72,7 +72,7 @@ describe('Client', function () {
         materializeProperties: 'tokens',
       });
       const expectedResult = `requestId=${settings.PER_REQUEST_SETTINGS_REQUEST_ID} evaluationTimeout=1234, batchSize=12, userAgent=helloWorld, materializeProperties=tokens`;
-      equal(expectedResult, resultSet.first());
+      assert.equal(expectedResult, resultSet.first());
     });
   });
 });

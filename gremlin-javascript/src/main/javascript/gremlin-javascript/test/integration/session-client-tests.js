@@ -21,7 +21,7 @@
  * @author : Liu Jianping
  */
 
-import { ok, strictEqual } from 'assert';
+import assert from 'assert';
 import Bytecode from '../../lib/process/bytecode.js';
 import { getSessionClient } from '../helper.js';
 
@@ -39,8 +39,8 @@ describe('Client', function () {
   describe('#submit()', function () {
     it('should send bytecode and response error', function () {
       return client.submit(new Bytecode().addStep('V', []).addStep('tail', [])).catch(function (err) {
-        ok(err);
-        ok(err.message.indexOf('session') > 0);
+        assert.ok(err);
+        assert.ok(err.message.indexOf('session') > 0);
       });
     });
 
@@ -48,15 +48,15 @@ describe('Client', function () {
       return client
         .submit('x = [0, 1, 2, 3, 4, 5]')
         .then(function (result) {
-          ok(result);
-          strictEqual(result.length, 6);
+          assert.ok(result);
+          assert.strictEqual(result.length, 6);
           //console.log("x : %s", JSON.stringify(result));
         })
         .then(function () {
           client.submit('x[2] + 4').then(function (result) {
-            ok(result);
-            strictEqual(result.length, 1);
-            strictEqual(result.first(), 6);
+            assert.ok(result);
+            assert.strictEqual(result.length, 1);
+            assert.strictEqual(result.first(), 6);
             //console.log("x[2] + 4: %s", JSON.stringify(result));
           });
         });
@@ -64,9 +64,9 @@ describe('Client', function () {
 
     it('should use bindings and golbal cache variable in session', function () {
       return client.submit('x[3] + y', { y: 3 }).then(function (result) {
-        ok(result);
-        strictEqual(result.length, 1);
-        strictEqual(result.first(), 6);
+        assert.ok(result);
+        assert.strictEqual(result.length, 1);
+        assert.strictEqual(result.first(), 6);
         //console.log("x[3] + y: %s", JSON.stringify(result));
       });
     });

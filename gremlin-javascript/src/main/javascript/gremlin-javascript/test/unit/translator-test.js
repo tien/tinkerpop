@@ -18,7 +18,7 @@
  */
 
 
-import { ok, strictEqual } from 'assert';
+import assert from 'assert';
 import { Graph } from '../../lib/structure/graph.js';
 import { order, P, TextP } from '../../lib/process/traversal.js';
 import Translator from '../../lib/process/translator.js';
@@ -30,36 +30,36 @@ describe('Translator', function () {
     it('should produce valid script representation from bytecode glv steps', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().out('created').getBytecode());
-      ok(script);
-      strictEqual(script, "g.V().out('created')");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().out('created')");
     });
 
     it('should produce valid script representation from bytecode glv steps translating number and text correctly', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V(1).out('created').getBytecode());
-      ok(script);
-      strictEqual(script, "g.V(1).out('created')");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V(1).out('created')");
     });
 
     it('should produce valid script representation from bytecode glv steps containing parameter bindings', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.addV({ name: 'Lilac' }).getBytecode());
-      ok(script);
-      strictEqual(script, "g.addV(('name', 'Lilac'))");
+      assert.ok(script);
+      assert.strictEqual(script, "g.addV(('name', 'Lilac'))");
     });
 
     it('should produce valid script representation from bytecode glv steps containing enum', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().order().by('age', order.shuffle).getBytecode());
-      ok(script);
-      strictEqual(script, "g.V().order().by('age', shuffle)");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().order().by('age', shuffle)");
     });
 
     it('should produce valid script representation from bytecode glv steps containing a predicate', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().hasLabel('person').has('age', P.gt(30)).getBytecode());
-      ok(script);
-      strictEqual(script, "g.V().hasLabel('person').has('age', gt(30))");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().hasLabel('person').has('age', gt(30))");
     });
 
     it('should produce valid script representation from bytecode glv steps containing a string predicate', function () {
@@ -67,15 +67,15 @@ describe('Translator', function () {
       const script = new Translator('g').translate(
         g.V().hasLabel('person').has('name', TextP.containing('foo')).getBytecode(),
       );
-      ok(script);
-      strictEqual(script, "g.V().hasLabel('person').has('name', containing('foo'))");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().hasLabel('person').has('name', containing('foo'))");
     });
 
     it('should produce valid script representation from bytecode glv steps with child', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().filter(__.outE('created')).getBytecode());
-      ok(script);
-      strictEqual(script, "g.V().filter(__.outE('created'))");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().filter(__.outE('created'))");
     });
 
     it('should produce valid script representation from bytecode glv steps with embedded child', function () {
@@ -86,36 +86,36 @@ describe('Translator', function () {
           .filter(__.outE('created').filter(__.has('weight')))
           .getBytecode(),
       );
-      ok(script);
-      strictEqual(script, "g.V().filter(__.outE('created').filter(__.has('weight')))");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().filter(__.outE('created').filter(__.has('weight')))");
     });
 
     it('should produce valid script representation from bytecode glv steps with embedded children', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().or(__.has('name', 'a'), __.has('name', 'b')).getBytecode());
-      ok(script);
-      strictEqual(script, "g.V().or(__.has('name', 'a'), __.has('name', 'b'))");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().or(__.has('name', 'a'), __.has('name', 'b'))");
     });
 
     it('should produce valid script representation from bytecode glv for boolean values', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().has('male', true).getBytecode());
-      ok(script);
-      strictEqual(script, "g.V().has('male', true)");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().has('male', true)");
     });
 
     it('should produce valid script representation from a traversal object', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V().has('male', true));
-      ok(script);
-      strictEqual(script, "g.V().has('male', true)");
+      assert.ok(script);
+      assert.strictEqual(script, "g.V().has('male', true)");
     });
 
     it('should produce valid script representation of array as step arg', function () {
       const g = new Graph().traversal();
       const script = new Translator('g').translate(g.V([1, 2, 3]));
-      ok(script);
-      strictEqual(script, 'g.V([1, 2, 3])');
+      assert.ok(script);
+      assert.strictEqual(script, 'g.V([1, 2, 3])');
     });
   });
 });

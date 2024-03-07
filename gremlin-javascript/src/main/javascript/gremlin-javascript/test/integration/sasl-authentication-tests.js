@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-import { ok, fail } from 'assert';
+import assert from 'assert';
 import AssertionError from 'assert';
 import AnonymousTraversal from '../../lib/process/anonymous-traversal.js';
 import Bytecode from '../../lib/process/bytecode.js';
@@ -47,8 +47,8 @@ describe('DriverRemoteConnection', function () {
         connection = getSecureConnectionWithPlainTextSaslAuthenticator(null, 'stephen', 'password');
 
         return connection.submit(new Bytecode().addStep('V', []).addStep('tail', [])).then(function (response) {
-          ok(response);
-          ok(response.traversers);
+          assert.ok(response);
+          assert.ok(response.traversers);
         });
       });
 
@@ -58,11 +58,11 @@ describe('DriverRemoteConnection', function () {
         return connection
           .submit(new Bytecode().addStep('V', []).addStep('tail', []))
           .then(function () {
-            fail('invalid credentials should throw');
+            assert.fail('invalid credentials should throw');
           })
           .catch(function (err) {
-            ok(err);
-            ok(err.message.indexOf('401') > 0);
+            assert.ok(err);
+            assert.ok(err.message.indexOf('401') > 0);
           });
       });
 
@@ -76,12 +76,12 @@ describe('DriverRemoteConnection', function () {
         return connection
           .submit(new Bytecode().addStep('V', []).addStep('tail', []))
           .then(function () {
-            fail('server is running TLS and trying to connect with ws:// so this should result in error thrown');
+            assert.fail('server is running TLS and trying to connect with ws:// so this should result in error thrown');
           })
           .catch(function (err) {
             if (err instanceof AssertionError) throw err;
-            ok(err);
-            ok(err.message === 'socket hang up');
+            assert.ok(err);
+            assert.ok(err.message === 'socket hang up');
           });
       });
 
@@ -97,12 +97,12 @@ describe('DriverRemoteConnection', function () {
           .V()
           .toList()
           .then(function () {
-            fail('server is running TLS and trying to connect with ws:// so this should result in error thrown');
+            assert.fail('server is running TLS and trying to connect with ws:// so this should result in error thrown');
           })
           .catch(function (err) {
             if (err instanceof AssertionError) throw err;
-            ok(err);
-            ok(err.message === 'socket hang up');
+            assert.ok(err);
+            assert.ok(err.message === 'socket hang up');
           });
       });
     });

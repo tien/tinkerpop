@@ -21,59 +21,59 @@
  * @author Jorge Bay Gondra
  */
 
-import { ok, strictEqual } from 'assert';
+import assert from 'assert';
 import * as glvModule from '../../lib/index.js';
 import { process, structure, driver } from '../../lib/index.js'
 
 describe('API', function () {
   it('should export fields under process', function () {
-    ok(glvModule);
-    ok(process);
-    strictEqual(typeof process.Bytecode, 'function');
-    strictEqual(typeof process.EnumValue, 'function');
-    strictEqual(typeof process.P, 'function');
-    strictEqual(typeof process.Traversal, 'function');
-    strictEqual(typeof process.TraversalSideEffects, 'function');
-    strictEqual(typeof process.TraversalStrategies, 'function');
-    strictEqual(typeof process.TraversalStrategy, 'function');
-    strictEqual(typeof process.Traverser, 'function');
-    strictEqual(typeof process.GraphTraversal, 'function');
-    strictEqual(typeof process.GraphTraversalSource, 'function');
-    strictEqual(typeof process.barrier, 'object');
-    strictEqual(typeof process.cardinality, 'object');
-    strictEqual(typeof process.column, 'object');
-    strictEqual(typeof process.direction, 'object');
-    strictEqual(typeof process.direction.both, 'object');
-    strictEqual(process.direction.both.elementName, 'BOTH');
-    strictEqual(typeof process.operator, 'object');
-    strictEqual(typeof process.order, 'object');
-    strictEqual(typeof process.pop, 'object');
-    strictEqual(typeof process.scope, 'object');
-    strictEqual(typeof process.t, 'object');
-    ok(process.statics);
+    assert.ok(glvModule);
+    assert.ok(process);
+    assert.strictEqual(typeof process.Bytecode, 'function');
+    assert.strictEqual(typeof process.EnumValue, 'function');
+    assert.strictEqual(typeof process.P, 'function');
+    assert.strictEqual(typeof process.Traversal, 'function');
+    assert.strictEqual(typeof process.TraversalSideEffects, 'function');
+    assert.strictEqual(typeof process.TraversalStrategies, 'function');
+    assert.strictEqual(typeof process.TraversalStrategy, 'function');
+    assert.strictEqual(typeof process.Traverser, 'function');
+    assert.strictEqual(typeof process.GraphTraversal, 'function');
+    assert.strictEqual(typeof process.GraphTraversalSource, 'function');
+    assert.strictEqual(typeof process.barrier, 'object');
+    assert.strictEqual(typeof process.cardinality, 'object');
+    assert.strictEqual(typeof process.column, 'object');
+    assert.strictEqual(typeof process.direction, 'object');
+    assert.strictEqual(typeof process.direction.both, 'object');
+    assert.strictEqual(process.direction.both.elementName, 'BOTH');
+    assert.strictEqual(typeof process.operator, 'object');
+    assert.strictEqual(typeof process.order, 'object');
+    assert.strictEqual(typeof process.pop, 'object');
+    assert.strictEqual(typeof process.scope, 'object');
+    assert.strictEqual(typeof process.t, 'object');
+    assert.ok(process.statics);
     validateConstructor(process, 'AnonymousTraversalSource');
-    strictEqual(typeof process.traversal, 'function');
+    assert.strictEqual(typeof process.traversal, 'function');
   });
   it('should expose fields under structure', function () {
-    ok(structure);
-    ok(structure.io);
-    strictEqual(typeof structure.io.GraphSONReader, 'function');
-    strictEqual(typeof structure.io.GraphSONWriter, 'function');
+    assert.ok(structure);
+    assert.ok(structure.io);
+    assert.strictEqual(typeof structure.io.GraphSONReader, 'function');
+    assert.strictEqual(typeof structure.io.GraphSONWriter, 'function');
     validateConstructor(structure.io, 'GraphSON2Reader');
     validateConstructor(structure.io, 'GraphSON2Writer');
     validateConstructor(structure.io, 'GraphSON3Reader');
     validateConstructor(structure.io, 'GraphSON3Writer');
-    strictEqual(structure.io.GraphSONReader, structure.io.GraphSON3Reader);
-    strictEqual(structure.io.GraphSONWriter, structure.io.GraphSON3Writer);
-    strictEqual(typeof structure.Edge, 'function');
-    strictEqual(typeof structure.Graph, 'function');
-    strictEqual(typeof structure.Path, 'function');
-    strictEqual(typeof structure.Property, 'function');
-    strictEqual(typeof structure.Vertex, 'function');
-    strictEqual(typeof structure.VertexProperty, 'function');
+    assert.strictEqual(structure.io.GraphSONReader, structure.io.GraphSON3Reader);
+    assert.strictEqual(structure.io.GraphSONWriter, structure.io.GraphSON3Writer);
+    assert.strictEqual(typeof structure.Edge, 'function');
+    assert.strictEqual(typeof structure.Graph, 'function');
+    assert.strictEqual(typeof structure.Path, 'function');
+    assert.strictEqual(typeof structure.Property, 'function');
+    assert.strictEqual(typeof structure.Vertex, 'function');
+    assert.strictEqual(typeof structure.VertexProperty, 'function');
   });
   it('should expose fields under driver', function () {
-    ok(driver);
+    assert.ok(driver);
     validateConstructor(driver, 'RemoteConnection');
     validateConstructor(driver, 'RemoteStrategy');
     validateConstructor(driver, 'RemoteTraversal');
@@ -84,6 +84,6 @@ describe('API', function () {
 });
 
 function validateConstructor(parent, name) {
-  strictEqual(typeof parent[name], 'function');
-  strictEqual(parent[name].name, name);
+  assert.strictEqual(typeof parent[name], 'function');
+  assert.strictEqual(parent[name].name, name);
 }

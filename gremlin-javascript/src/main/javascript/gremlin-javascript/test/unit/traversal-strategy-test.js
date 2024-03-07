@@ -18,7 +18,7 @@
  */
 
 
-import { strictEqual } from 'assert';
+import assert from 'assert';
 import { TraversalStrategies, OptionsStrategy, ConnectiveStrategy } from '../../lib/process/traversal-strategy.js';
 
 describe('TraversalStrategies', function () {
@@ -27,23 +27,23 @@ describe('TraversalStrategies', function () {
       const ts = new TraversalStrategies();
       ts.addStrategy(new ConnectiveStrategy());
       ts.addStrategy(new OptionsStrategy({ x: 123 }));
-      strictEqual(ts.strategies.length, 2);
+      assert.strictEqual(ts.strategies.length, 2);
 
       const c = new OptionsStrategy({ x: 123 });
       const os = ts.removeStrategy(c);
-      strictEqual(os.fqcn, c.fqcn);
-      strictEqual(ts.strategies.length, 1);
+      assert.strictEqual(os.fqcn, c.fqcn);
+      assert.strictEqual(ts.strategies.length, 1);
 
       ts.removeStrategy(new ConnectiveStrategy());
-      strictEqual(ts.strategies.length, 0);
+      assert.strictEqual(ts.strategies.length, 0);
     });
 
     it('should not find anything to remove', function () {
       const ts = new TraversalStrategies();
       ts.addStrategy(new OptionsStrategy({ x: 123 }));
-      strictEqual(ts.strategies.length, 1);
+      assert.strictEqual(ts.strategies.length, 1);
       ts.removeStrategy(new ConnectiveStrategy());
-      strictEqual(ts.strategies.length, 1);
+      assert.strictEqual(ts.strategies.length, 1);
     });
   });
 });

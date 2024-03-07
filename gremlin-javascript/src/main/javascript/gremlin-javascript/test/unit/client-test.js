@@ -18,7 +18,7 @@
  */
 
 
-import { strictEqual } from 'assert';
+import assert from 'assert';
 import Client from '../../lib/driver/client.js';
 
 describe('Client', function () {
@@ -28,8 +28,8 @@ describe('Client', function () {
   it('should use default opProcessor', function () {
     const connectionMock = {
       submit: function (processor, op, args, requestId) {
-        strictEqual(args.gremlin, query);
-        strictEqual(processor, '');
+        assert.strictEqual(args.gremlin, query);
+        assert.strictEqual(processor, '');
 
         return Promise.resolve();
       },
@@ -43,8 +43,8 @@ describe('Client', function () {
   it('should allow to configure opProcessor', function () {
     const connectionMock = {
       submit: function (processor, op, args, requestId) {
-        strictEqual(args.gremlin, query);
-        strictEqual(processor, customOpProcessor);
+        assert.strictEqual(args.gremlin, query);
+        assert.strictEqual(processor, customOpProcessor);
 
         return Promise.resolve();
       },
@@ -62,10 +62,10 @@ describe('Client', function () {
   it('should allow to submit extra arguments', function () {
     const connectionMock = {
       submit: function (processor, op, args, requestId) {
-        strictEqual(args.gremlin, query);
-        strictEqual(args.evaluationTimeout, 123);
-        strictEqual(args.materializeProperties, 'tokens');
-        strictEqual(processor, customOpProcessor);
+        assert.strictEqual(args.gremlin, query);
+        assert.strictEqual(args.evaluationTimeout, 123);
+        assert.strictEqual(args.materializeProperties, 'tokens');
+        assert.strictEqual(processor, customOpProcessor);
 
         return Promise.resolve();
       },
