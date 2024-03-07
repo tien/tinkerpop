@@ -23,7 +23,7 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import { Path } from '../../../graph';
+import { Path } from '../../../graph.js';
 
 export default class PathSerializer {
   constructor(ioc) {

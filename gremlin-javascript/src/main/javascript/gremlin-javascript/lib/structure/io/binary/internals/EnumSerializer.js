@@ -37,7 +37,7 @@ import {
   scope,
   t as _t,
   EnumValue,
-} from '../../../../process/traversal';
+} from '../../../../process/traversal.js';
 
 export default class EnumSerializer {
   constructor(ioc) {

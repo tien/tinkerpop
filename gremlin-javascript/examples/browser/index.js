@@ -19,13 +19,18 @@
 
 import Color from "colorjs.io";
 import cytoscape from "cytoscape";
-import gremlin from "gremlin";
+import * as gremlin from "gremlin";
 import { createRandomColorGenerator } from "./utils";
 
 const randomColor = createRandomColorGenerator();
 
 const g = gremlin.process.AnonymousTraversalSource.traversal().withRemote(
-  new gremlin.driver.DriverRemoteConnection("ws://localhost:8182/gremlin")
+  new gremlin.driver.DriverRemoteConnection("ws://localhost:8182/gremlin", {
+    authenticator: new gremlin.driver.auth.PlainTextSaslAuthenticator(
+      "admin",
+      "administrator"
+    ),
+  })
 );
 
 const [vertices, edges] = await Promise.all([

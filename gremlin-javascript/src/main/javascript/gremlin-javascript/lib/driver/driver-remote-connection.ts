@@ -29,7 +29,7 @@ import * as utils from '../utils.js';
 import Client, { RequestOptions } from './client.js';
 import Bytecode from '../process/bytecode.js';
 import { ConnectionOptions } from './connection.js';
-const OptionsStrategy = require('../process/traversal-strategy').OptionsStrategy;
+import { OptionsStrategy } from '../process/traversal-strategy.js';
 
 /**
  * Represents the default {@link RemoteConnection} implementation.

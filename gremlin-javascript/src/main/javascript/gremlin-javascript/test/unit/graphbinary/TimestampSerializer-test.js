@@ -22,4 +22,6 @@
  */
 'use strict';
 
-require('./DateSerializerTestTemplate')({ ID: 0x05, name: 'Timestamp' });
+import DateSerializerTestTemplate from './DateSerializerTestTemplate.js';
+
+DateSerializerTestTemplate({ ID: 0x05, name: 'Timestamp' });

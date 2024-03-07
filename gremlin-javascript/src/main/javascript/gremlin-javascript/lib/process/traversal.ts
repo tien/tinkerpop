@@ -446,8 +446,10 @@ function createTextP(operator: string, args: any) {
 export class Traverser<T = any> {
   constructor(
     public object: T,
-    public bulk: number = 1,
-  ) {}
+    public bulk: number,
+  ) {
+    this.bulk = bulk || 1;
+  }
 }
 
 export class TraversalSideEffects {}

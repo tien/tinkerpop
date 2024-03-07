@@ -23,7 +23,7 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import { Edge, Vertex } from '../../../graph';
+import { Edge, Vertex } from '../../../graph.js';
 
 export default class EdgeSerializer {
   constructor(ioc) {

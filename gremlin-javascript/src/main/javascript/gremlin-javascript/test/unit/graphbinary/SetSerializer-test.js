@@ -22,4 +22,6 @@
  */
 'use strict';
 
-require('./SetSerializerTestTemplate')({ ID: 0x0B, name: 'Set' });
+import ArraySerializerTestTemplate from './ArraySerializerTestTemplate.js';
+
+ArraySerializerTestTemplate({ ID: 0x0b, name: 'Set' });

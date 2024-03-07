@@ -22,16 +22,16 @@
  */
 'use strict';
 
-const assert = require('assert');
-const ResultSet = require('../../lib/driver/result-set');
+import { ok, deepStrictEqual, strictEqual } from 'assert';
+import ResultSet from '../../lib/driver/result-set.js';
 
 describe('ResultSet', function () {
   describe('#toArray()', () => {
     it('should return an array of items', () => {
       const items = ['a', 'b'];
       const result = new ResultSet(items);
-      assert.ok(Array.isArray(result.toArray()));
-      assert.deepStrictEqual(result.toArray(), items);
+      ok(Array.isArray(result.toArray()));
+      deepStrictEqual(result.toArray(), items);
     });
   });
 
@@ -39,18 +39,18 @@ describe('ResultSet', function () {
     it('should return the length of the items', () => {
       const items = ['a', 'b', 1, 0];
       const result = new ResultSet(items);
-      assert.strictEqual(result.length, items.length);
+      strictEqual(result.length, items.length);
     });
   });
 
   describe('#first()', () => {
     it('should return the first item when there are one or more than one item', () => {
-      assert.strictEqual(new ResultSet(['a', 'b']).first(), 'a');
-      assert.strictEqual(new ResultSet(['z']).first(), 'z');
+      strictEqual(new ResultSet(['a', 'b']).first(), 'a');
+      strictEqual(new ResultSet(['z']).first(), 'z');
     });
 
     it('should return null when there are no items', () => {
-      assert.strictEqual(new ResultSet([]).first(), null);
+      strictEqual(new ResultSet([]).first(), null);
     });
   });
 
@@ -63,22 +63,22 @@ describe('ResultSet', function () {
         obtained.push(item);
       }
 
-      assert.deepStrictEqual(obtained, items);
-      assert.deepStrictEqual(Array.from(result), items);
+      deepStrictEqual(obtained, items);
+      deepStrictEqual(Array.from(result), items);
     });
   });
 
   describe('#[util.inspect.custom]()', () => {
     it('should return the Array representation', () => {
-      assert.deepStrictEqual(new ResultSet([1, 2, 3])._items, [1, 2, 3]);
+      deepStrictEqual(new ResultSet([1, 2, 3]).items, [1, 2, 3]);
     });
   });
 
   describe('#attributes', () => {
     it('should default to an empty Map when not defined', () => {
       const rs = new ResultSet([]);
-      assert.ok(rs.attributes instanceof Map);
-      assert.strictEqual(rs.attributes.size, 0);
+      ok(rs.attributes instanceof Map);
+      strictEqual(rs.attributes.size, 0);
     });
 
     it('should return the attributes when defined', () => {
@@ -87,8 +87,8 @@ describe('ResultSet', function () {
         ['b', 1],
       ]);
       const rs = new ResultSet([], attributes);
-      assert.ok(rs.attributes instanceof Map);
-      assert.strictEqual(rs.attributes, attributes);
+      ok(rs.attributes instanceof Map);
+      strictEqual(rs.attributes, attributes);
     });
   });
 });

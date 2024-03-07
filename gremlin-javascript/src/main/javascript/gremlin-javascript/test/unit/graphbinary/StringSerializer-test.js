@@ -22,4 +22,6 @@
  */
 'use strict';
 
-require('./StringSerializerTestTemplate')({ ID: 0x03, name: 'String' });
+import StringSerializerTestTemplate from './StringSerializerTestTemplate.js';
+
+StringSerializerTestTemplate({ ID: 0x03, name: 'String' });

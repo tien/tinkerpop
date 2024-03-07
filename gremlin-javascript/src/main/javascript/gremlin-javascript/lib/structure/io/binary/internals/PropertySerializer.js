@@ -23,7 +23,7 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import { Property } from '../../../graph';
+import { Property } from '../../../graph.js';
 
 export default class PropertySerializer {
   constructor(ioc) {

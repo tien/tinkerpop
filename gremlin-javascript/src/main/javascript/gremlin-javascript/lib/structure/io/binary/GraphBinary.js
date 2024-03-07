@@ -60,6 +60,7 @@
 /*eslint-disable*/
 'use strict';
 
+export { default as DataType } from './internals/DataType.js';
 import DataType from './internals/DataType.js';
 import * as utils from './internals/utils.js';
 import IntSerializer from './internals/IntSerializer.js';
@@ -141,5 +142,43 @@ ioc.anySerializer = new AnySerializer(ioc);
 
 ioc.graphBinaryReader = new GraphBinaryReader(ioc);
 ioc.graphBinaryWriter = new GraphBinaryWriter(ioc);
+
+export const serializers = ioc.serializers;
+export const intSerializer = ioc.intSerializer;
+export const longSerializer = ioc.longSerializer;
+export const longSerializerNg = ioc.longSerializerNg;
+export const stringSerializer = ioc.stringSerializer;
+export const dateSerializer = ioc.dateSerializer;
+export const timestampSerializer = ioc.timestampSerializer;
+export const classSerializer = ioc.classSerializer;
+export const doubleSerializer = ioc.doubleSerializer;
+export const floatSerializer = ioc.floatSerializer;
+export const listSerializer = ioc.listSerializer;
+export const mapSerializer = ioc.mapSerializer;
+export const setSerializer = ioc.setSerializer;
+export const uuidSerializer = ioc.uuidSerializer;
+export const edgeSerializer = ioc.edgeSerializer;
+export const pathSerializer = ioc.pathSerializer;
+export const propertySerializer = ioc.propertySerializer;
+export const vertexSerializer = ioc.vertexSerializer;
+export const vertexPropertySerializer = ioc.vertexPropertySerializer;
+export const bytecodeSerializer = ioc.bytecodeSerializer;
+export const pSerializer = ioc.pSerializer;
+export const traverserSerializer = ioc.traverserSerializer;
+export const enumSerializer = ioc.enumSerializer;
+export const lambdaSerializer = ioc.lambdaSerializer;
+export const bigIntegerSerializer = ioc.bigIntegerSerializer;
+export const byteSerializer = ioc.byteSerializer;
+export const byteBufferSerializer = ioc.byteBufferSerializer;
+export const shortSerializer = ioc.shortSerializer;
+export const booleanSerializer = ioc.booleanSerializer;
+export const textPSerializer = ioc.textPSerializer;
+export const traversalStrategySerializer = ioc.traversalStrategySerializer;
+export const bulkSetSerializer = ioc.bulkSetSerializer;
+export const unspecifiedNullSerializer = ioc.unspecifiedNullSerializer;
+export const numberSerializationStrategy = ioc.numberSerializationStrategy;
+export const anySerializer = ioc.anySerializer;
+export const graphBinaryReader = ioc.graphBinaryReader;
+export const graphBinaryWriter = ioc.graphBinaryWriter;
 
 export default ioc;

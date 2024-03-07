@@ -23,7 +23,7 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import { Traverser } from '../../../../process/traversal';
+import { Traverser } from '../../../../process/traversal.js';
 
 export default class TraverserSerializer {
   constructor(ioc) {

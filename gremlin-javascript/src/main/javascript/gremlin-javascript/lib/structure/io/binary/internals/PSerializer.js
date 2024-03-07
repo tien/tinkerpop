@@ -23,7 +23,7 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import { P } from '../../../../process/traversal';
+import { P } from '../../../../process/traversal.js';
 
 export default class PSerializer {
   constructor(ioc) {

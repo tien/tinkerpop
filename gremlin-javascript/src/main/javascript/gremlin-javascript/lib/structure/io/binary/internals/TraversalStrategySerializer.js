@@ -24,7 +24,7 @@
 
 import { Buffer } from 'buffer';
 
-import { TraversalStrategySerializer as GraphsonTraversalStrategySerializer } from '../../type-serializers';
+import { TraversalStrategySerializer as GraphsonTraversalStrategySerializer } from '../../type-serializers.js';
 
 export default class TraversalStrategySerializer {
   constructor(ioc) {

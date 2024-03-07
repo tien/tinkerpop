@@ -23,7 +23,7 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import { Vertex } from '../../../graph';
+import { Vertex } from '../../../graph.js';
 
 export default class VertexSerializer {
   constructor(ioc) {

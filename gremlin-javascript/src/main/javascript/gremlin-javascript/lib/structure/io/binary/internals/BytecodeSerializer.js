@@ -23,8 +23,8 @@
 'use strict';
 
 import { Buffer } from 'buffer';
-import Bytecode from '../../../../process/bytecode';
-import { Traversal } from '../../../../process/traversal';
+import Bytecode from '../../../../process/bytecode.js';
+import { Traversal } from '../../../../process/traversal.js';
 
 export default class BytecodeSerializer {
   constructor(ioc) {

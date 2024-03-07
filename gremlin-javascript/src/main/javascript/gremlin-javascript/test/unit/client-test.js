@@ -19,8 +19,8 @@
 
 'use strict';
 
-const assert = require('assert');
-const Client = require('../../lib/driver/client');
+import { strictEqual } from 'assert';
+import Client from '../../lib/driver/client.js';
 
 describe('Client', function () {
   const customOpProcessor = 'customOpProcessor';
@@ -29,47 +29,55 @@ describe('Client', function () {
   it('should use default opProcessor', function () {
     const connectionMock = {
       submit: function (processor, op, args, requestId) {
-        assert.strictEqual(args.gremlin, query);
-        assert.strictEqual(processor, '');
+        strictEqual(args.gremlin, query);
+        strictEqual(processor, '');
 
         return Promise.resolve();
-      }
+      },
     };
 
-    const customClient = new Client('ws://localhost:9321', {traversalSource: 'g', connectOnStartup: false});
+    const customClient = new Client('ws://localhost:9321', { traversalSource: 'g', connectOnStartup: false });
     customClient._connection = connectionMock;
-    customClient.submit(query)
+    customClient.submit(query);
   });
 
   it('should allow to configure opProcessor', function () {
     const connectionMock = {
       submit: function (processor, op, args, requestId) {
-        assert.strictEqual(args.gremlin, query);
-        assert.strictEqual(processor, customOpProcessor);
+        strictEqual(args.gremlin, query);
+        strictEqual(processor, customOpProcessor);
 
         return Promise.resolve();
-      }
+      },
     };
 
-    const customClient = new Client('ws://localhost:9321', {traversalSource: 'g', processor: customOpProcessor, connectOnStartup: false});
+    const customClient = new Client('ws://localhost:9321', {
+      traversalSource: 'g',
+      processor: customOpProcessor,
+      connectOnStartup: false,
+    });
     customClient._connection = connectionMock;
-    customClient.submit(query)
+    customClient.submit(query);
   });
 
   it('should allow to submit extra arguments', function () {
     const connectionMock = {
       submit: function (processor, op, args, requestId) {
-        assert.strictEqual(args.gremlin, query);
-        assert.strictEqual(args.evaluationTimeout, 123);
-        assert.strictEqual(args.materializeProperties, 'tokens');
-        assert.strictEqual(processor, customOpProcessor);
+        strictEqual(args.gremlin, query);
+        strictEqual(args.evaluationTimeout, 123);
+        strictEqual(args.materializeProperties, 'tokens');
+        strictEqual(processor, customOpProcessor);
 
         return Promise.resolve();
-      }
+      },
     };
 
-    const customClient = new Client('ws://localhost:9321', {traversalSource: 'g', processor: customOpProcessor, connectOnStartup: false});
+    const customClient = new Client('ws://localhost:9321', {
+      traversalSource: 'g',
+      processor: customOpProcessor,
+      connectOnStartup: false,
+    });
     customClient._connection = connectionMock;
-    customClient.submit(query, null, {'evaluationTimeout': 123, 'materializeProperties': 'tokens'})
+    customClient.submit(query, null, { evaluationTimeout: 123, materializeProperties: 'tokens' });
   });
 });
