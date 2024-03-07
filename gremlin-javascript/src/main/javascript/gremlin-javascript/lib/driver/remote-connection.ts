@@ -32,31 +32,27 @@ export type RemoteConnectionOptions = ConnectionOptions & { session?: string };
  * Represents an abstraction of a "connection" to a "server" that is capable of processing a traversal and
  * returning results.
  */
-export class RemoteConnection {
+export abstract class RemoteConnection {
   /**
    * @param {String} url The resource uri.
    * @param {RemoteConnectionOptions} [options] The connection options.
    */
   constructor(
     public url: string,
-    public options: RemoteConnectionOptions = {},
+    protected readonly options: RemoteConnectionOptions = {},
   ) {}
 
   /**
    * Opens the connection, if its not already opened.
    * @returns {Promise}
    */
-  open(): Promise<void> {
-    throw new Error('open() must be implemented');
-  }
+  abstract open(): Promise<void>;
 
   /**
    * Returns true if connection is open
    * @returns {Boolean}
    */
-  get isOpen(): boolean {
-    throw new Error('isOpen() must be implemented');
-  }
+  abstract isOpen(): boolean;
 
   /**
    * Determines if the connection is already bound to a session. If so, this indicates that the
@@ -69,45 +65,35 @@ export class RemoteConnection {
 
   /**
    * Submits the <code>Bytecode</code> provided and returns a <code>RemoteTraversal</code>.
-   * @abstract
    * @param {Bytecode} bytecode
    * @returns {Promise} Returns a <code>Promise</code> that resolves to a <code>RemoteTraversal</code>.
    */
-  submit(bytecode: Bytecode | null): Promise<RemoteTraversal> {
-    throw new Error('submit() must be implemented');
-  }
+  abstract submit(bytecode: Bytecode | null): Promise<RemoteTraversal>;
 
   /**
    * Create a new <code>RemoteConnection</code> that is bound to a session using the configuration from this one.
    * If the connection is already session bound then this function should throw an exception.
    * @returns {RemoteConnection}
    */
-  createSession(): RemoteConnection {
-    throw new Error('createSession() must be implemented');
-  }
+  abstract createSession(): RemoteConnection;
 
   /**
    * Submits a <code>Bytecode.GraphOp.commit</code> to the server and closes the connection.
    * @returns {Promise}
    */
-  commit(): Promise<void> {
-    throw new Error('commit() must be implemented');
-  }
+  abstract commit(): Promise<void>;
+
   /**
    * Submits a <code>Bytecode.GraphOp.rollback</code> to the server and closes the connection.
    * @returns {Promise}
    */
-  rollback(): Promise<void> {
-    throw new Error('rollback() must be implemented');
-  }
+  abstract rollback(): Promise<void>;
 
   /**
    * Closes the connection where open transactions will close according to the features of the graph provider.
    * @returns {Promise}
    */
-  close(): Promise<void> {
-    throw new Error('close() must be implemented');
-  }
+  abstract close(): Promise<void>;
 }
 
 /**

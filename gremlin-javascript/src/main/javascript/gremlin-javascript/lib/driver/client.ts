@@ -62,7 +62,6 @@ export default class Client {
     url: string,
     private readonly options: ClientOptions = {},
   ) {
-    this.options = options;
     if (this.options.processor === 'session') {
       // compatibility with old 'session' processor setting
       this.options.session = options.session || utils.getUuid();

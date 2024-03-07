@@ -17,27 +17,18 @@
  *  under the License.
  */
 
-
 export type AuthenticatorOptions = {
   username?: string;
   password?: string;
   mechanism?: any;
 };
 
-/** @abstract */
-export default class Authenticator {
-  protected readonly options: AuthenticatorOptions;
-
-  constructor(options: AuthenticatorOptions) {
-    this.options = options;
-  }
+export default abstract class Authenticator {
+  constructor(protected readonly options: AuthenticatorOptions) {}
 
   /**
-   * @abstract
    * Evaluates the challenge from the server and returns appropriate response.
    * @param {String} challenge Challenge string presented by the server.
    */
-  evaluateChallenge(challenge: string) {
-    throw new Error('evaluateChallenge should be implemented');
-  }
+  abstract evaluateChallenge(challenge: string): any;
 }
