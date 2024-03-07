@@ -17,14 +17,13 @@
  *  under the License.
  */
 
-
 import { equal, ok, strictEqual } from 'assert';
 import {
   getGremlinSocketServerClient,
   getGremlinSocketServerSettings,
   getGremlinSocketServerClientNoUserAgent,
 } from '../helper.js';
-import { getUserAgent } from '../../lib/utils';
+import { getUserAgent } from '../../lib/utils.js';
 
 let client;
 let settings;

@@ -26,7 +26,8 @@ import DriverRemoteConnection from '../lib/driver/driver-remote-connection.js';
 import Client from '../lib/driver/client.js';
 import PlainTextSaslAuthenticator from '../lib/driver/auth/plain-text-sasl-authenticator.js';
 
-import { load } from 'js-yaml';
+import jsYaml from 'js-yaml';
+const { load } = jsYaml;
 import { readFileSync } from 'fs';
 
 let serverUrl;

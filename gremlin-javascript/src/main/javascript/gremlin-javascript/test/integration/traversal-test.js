@@ -21,12 +21,10 @@
  * @author Jorge Bay Gondra
  */
 
-import Mocha from 'mocha';
 import { fail, strictEqual, ok } from 'assert';
 import { AssertionError } from 'assert';
-import DriverRemoteConnection from '../../lib/driver/driver-remote-connection.js';
 import { Vertex } from '../../lib/structure/graph.js';
-import { traversal } from '../../lib/process/anonymous-traversal.js';
+import AnonymousTraversal from '../../lib/process/anonymous-traversal.js';
 import { GraphTraversalSource, GraphTraversal, statics } from '../../lib/process/graph-traversal.js';
 import {
   SubgraphStrategy,
@@ -38,6 +36,7 @@ import {
 import Bytecode from '../../lib/process/bytecode.js';
 import { getConnection, getDriverRemoteConnection } from '../helper.js';
 const __ = statics;
+const { traversal } = AnonymousTraversal;
 
 let connection;
 let txConnection;
@@ -110,7 +109,7 @@ describe('Traversal', function () {
   });
   describe('#clone()', function () {
     it('should reset a traversal when cloned', function () {
-      var g = traversal().with_(connection);
+      var g = traversal().withRemote(connection);
       var t = g.V().count();
       return t.next().then(function (item1) {
         ok(item1);
@@ -126,7 +125,7 @@ describe('Traversal', function () {
   });
   describe('#next()', function () {
     it('should submit the traversal and return an iterator', function () {
-      var g = traversal().with_(connection);
+      var g = traversal().withRemote(connection);
       var t = g.V().count();
       return t
         .hasNext()
@@ -373,7 +372,7 @@ describe('Traversal', function () {
         });
     });
     it('should commit a simple transaction', async function () {
-      const g = traversal().with_(txConnection);
+      const g = traversal().withRemote(txConnection);
       const tx = g.tx();
       const gtx = tx.begin();
       await Promise.all([

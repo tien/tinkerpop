@@ -17,14 +17,14 @@
  *  under the License.
  */
 
-
 import { ok, fail } from 'assert';
 import AssertionError from 'assert';
-import { traversal } from '../../lib/process/anonymous-traversal.js';
+import AnonymousTraversal from '../../lib/process/anonymous-traversal.js';
 import Bytecode from '../../lib/process/bytecode.js';
 import { getSecureConnectionWithPlainTextSaslAuthenticator, getDriverRemoteConnection } from '../helper.js';
-import DriverRemoteConnection from '../../lib/driver/driver-remote-connection.js';
 import PlainTextSaslAuthenticator from '../../lib/driver/auth/plain-text-sasl-authenticator.js';
+
+const { traversal } = AnonymousTraversal;
 
 let connection;
 let badServerAuthUrl;

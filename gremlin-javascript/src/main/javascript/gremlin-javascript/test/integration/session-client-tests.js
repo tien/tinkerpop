@@ -21,10 +21,8 @@
  * @author : Liu Jianping
  */
 
-
 import { ok, strictEqual } from 'assert';
 import Bytecode from '../../lib/process/bytecode.js';
-import graphModule from '../../lib/structure/graph.js';
 import { getSessionClient } from '../helper.js';
 
 let client;
