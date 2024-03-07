@@ -22,9 +22,9 @@
  */
 'use strict';
 
-const { Buffer } = require('buffer');
+import { Buffer } from 'buffer';
 
-module.exports = class ArraySerializer {
+export default class ArraySerializer {
   constructor(ioc, ID) {
     this.ioc = ioc;
     this.ID = ID;
@@ -134,4 +134,4 @@ module.exports = class ArraySerializer {
       throw this.ioc.utils.des_error({ serializer: this, args: arguments, cursor, err });
     }
   }
-};
+}

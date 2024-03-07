@@ -16,34 +16,38 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
 'use strict';
 
-const Authenticator = require('./authenticator');
+import { AuthenticatorOptions } from '../authenticator.js';
 
-class SaslAuthenticator extends Authenticator {
-  /**
-   * Creates a new instance of SaslAuthenticator.
-   * @param {Object} [options] The authentication options.
-   * @param {Object} [options.mechanism] The mechanism to be used for authentication.
-   * @constructor
-   */
-  constructor(options) {
-    super(options);
+export type SaslMechanismBaseOptions = AuthenticatorOptions & { authzid: string };
 
-    if (options.mechanism === null || options.mechanism === undefined) {
-      throw new Error('No Sasl Mechanism Specified');
-    }
+export default abstract class SaslMechanismBase {
+  constructor(protected options: SaslMechanismBaseOptions) {
+    this.setopts(options);
   }
 
   /**
-   * Evaluates the challenge from the server and returns appropriate response.
-   * @param {String} challenge Challenge string presented by the server.
-   * @return {Object} A Promise that resolves to a valid sasl response object.
+   * Returns the name of the mechanism
    */
-  evaluateChallenge(challenge) {
-    return this._options.mechanism.evaluateChallenge(challenge);
+  get name(): string | null {
+    return null;
+  }
+
+  /**
+   * Set the options for the mechanism
+   * @param {object} options Options specific to the mechanism
+   */
+  setopts(options: SaslMechanismBaseOptions) {
+    this.options = options;
+  }
+
+  /**
+   * @abstract
+   * Evaluates the challenge from the server and returns appropriate response
+   * @param {String} challenge Challenge string presented by the server
+   */
+  evaluateChallenge(challenge: String) {
+    throw new Error('evaluateChallenge should be implemented');
   }
 }
-
-module.exports = SaslAuthenticator;

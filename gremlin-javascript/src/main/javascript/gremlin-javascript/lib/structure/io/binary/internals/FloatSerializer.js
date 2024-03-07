@@ -22,9 +22,9 @@
  */
 'use strict';
 
-const { Buffer } = require('buffer');
+import { Buffer } from 'buffer';
 
-module.exports = class FloatSerializer {
+export default class FloatSerializer {
   constructor(ioc) {
     this.ioc = ioc;
     this.ioc.serializers[ioc.DataType.FLOAT] = this;
@@ -98,4 +98,4 @@ module.exports = class FloatSerializer {
       throw this.ioc.utils.des_error({ serializer: this, args: arguments, cursor, err });
     }
   }
-};
+}

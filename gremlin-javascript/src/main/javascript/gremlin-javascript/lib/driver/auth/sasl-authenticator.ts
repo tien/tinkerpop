@@ -19,20 +19,33 @@
 
 'use strict';
 
-/** @abstract */
-class Authenticator {
-  constructor(options) {
-    this._options = options;
+import Authenticator, { AuthenticatorOptions } from './authenticator.js';
+
+export type SaslAuthenticatorOptions = AuthenticatorOptions & {
+  mechanism?: any;
+};
+
+export default class SaslAuthenticator extends Authenticator {
+  /**
+   * Creates a new instance of SaslAuthenticator.
+   * @param {Object} [options] The authentication options.
+   * @param {Object} [options.mechanism] The mechanism to be used for authentication.
+   * @constructor
+   */
+  constructor(options: SaslAuthenticatorOptions) {
+    super(options);
+
+    if (options.mechanism === null || options.mechanism === undefined) {
+      throw new Error('No Sasl Mechanism Specified');
+    }
   }
 
   /**
-   * @abstract
    * Evaluates the challenge from the server and returns appropriate response.
    * @param {String} challenge Challenge string presented by the server.
+   * @return {Object} A Promise that resolves to a valid sasl response object.
    */
-  evaluateChallenge(challenge) {
-    throw new Error('evaluateChallenge should be implemented');
+  evaluateChallenge(challenge: string) {
+    return this.options.mechanism.evaluateChallenge(challenge);
   }
 }
-
-module.exports = Authenticator;

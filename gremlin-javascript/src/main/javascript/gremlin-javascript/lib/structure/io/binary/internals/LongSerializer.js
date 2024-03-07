@@ -22,9 +22,9 @@
  */
 'use strict';
 
-const { Buffer } = require('buffer');
+import { Buffer } from 'buffer';
 
-module.exports = class LongSerializer {
+export default class LongSerializer {
   constructor(ioc) {
     this.ioc = ioc;
     this.ioc.serializers[ioc.DataType.LONG] = this;
@@ -106,4 +106,4 @@ module.exports = class LongSerializer {
       throw this.ioc.utils.des_error({ serializer: this, args: arguments, cursor, err });
     }
   }
-};
+}

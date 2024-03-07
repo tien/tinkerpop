@@ -19,37 +19,26 @@
 
 'use strict';
 
-const Authenticator = require('./authenticator');
-const SaslMechanismPlain = require('./mechanisms/sasl-mechanism-plain');
+export type AuthenticatorOptions = {
+  username?: string;
+  password?: string;
+  mechanism?: any;
+};
 
-class PlainTextSaslAuthenticator extends Authenticator {
-  /**
-   * Creates a new instance of PlainTextSaslAuthenticator.
-   * @param {string} username Username to log into the server.
-   * @param {string} password Password for the user.
-   * @param {string} [authzid] Optional id
-   * @constructor
-   */
-  constructor(username, password, authzid) {
-    const options = {
-      mechanism: new SaslMechanismPlain({
-        username: username,
-        password: password,
-        authzid: authzid,
-      }),
-    };
+/** @abstract */
+export default class Authenticator {
+  protected readonly options: AuthenticatorOptions;
 
-    super(options);
+  constructor(options: AuthenticatorOptions) {
+    this.options = options;
   }
 
   /**
+   * @abstract
    * Evaluates the challenge from the server and returns appropriate response.
    * @param {String} challenge Challenge string presented by the server.
-   * @return {Object} A Promise that resolves to a valid sasl response object.
    */
-  evaluateChallenge(challenge) {
-    return this._options.mechanism.evaluateChallenge(challenge);
+  evaluateChallenge(challenge: string) {
+    throw new Error('evaluateChallenge should be implemented');
   }
 }
-
-module.exports = PlainTextSaslAuthenticator;

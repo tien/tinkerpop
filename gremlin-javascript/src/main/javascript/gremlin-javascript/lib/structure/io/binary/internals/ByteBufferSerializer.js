@@ -22,9 +22,9 @@
  */
 'use strict';
 
-const { Buffer } = require('buffer');
+import { Buffer } from 'buffer';
 
-module.exports = class ByteBufferSerializer {
+export default class ByteBufferSerializer {
   constructor(ioc) {
     this.ioc = ioc;
     this.ioc.serializers[ioc.DataType.BYTEBUFFER] = this;
@@ -123,4 +123,4 @@ module.exports = class ByteBufferSerializer {
       throw this.ioc.utils.des_error({ serializer: this, args: arguments, cursor, err });
     }
   }
-};
+}

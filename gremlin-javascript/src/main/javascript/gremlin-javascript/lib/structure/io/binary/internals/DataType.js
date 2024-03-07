@@ -96,4 +96,4 @@ const DataType = {
   UNSPECIFIED_NULL: 0xfe,
 };
 
-module.exports = DataType;
+export default DataType;

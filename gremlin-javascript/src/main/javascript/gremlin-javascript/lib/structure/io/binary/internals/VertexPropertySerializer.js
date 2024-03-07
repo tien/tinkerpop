@@ -22,17 +22,17 @@
  */
 'use strict';
 
-const { Buffer } = require('buffer');
-const g = require('../../../graph');
+import { Buffer } from 'buffer';
+import { VertexProperty } from '../../../graph';
 
-module.exports = class VertexPropertySerializer {
+export default class VertexPropertySerializer {
   constructor(ioc) {
     this.ioc = ioc;
     this.ioc.serializers[ioc.DataType.VERTEXPROPERTY] = this;
   }
 
   canBeUsedFor(value) {
-    return value instanceof g.VertexProperty;
+    return value instanceof VertexProperty;
   }
 
   serialize(item, fullyQualifiedFormat = true) {
@@ -164,10 +164,10 @@ module.exports = class VertexPropertySerializer {
       // TODO: should we verify that properties is null?
       cursor = cursor.slice(properties_len);
 
-      const v = new g.VertexProperty(id, label, value, properties);
+      const v = new VertexProperty(id, label, value, properties);
       return { v, len };
     } catch (err) {
       throw this.ioc.utils.des_error({ serializer: this, args: arguments, cursor, err });
     }
   }
-};
+}

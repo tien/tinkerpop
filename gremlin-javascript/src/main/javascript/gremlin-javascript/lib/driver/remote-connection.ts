@@ -22,28 +22,32 @@
  */
 'use strict';
 
-const t = require('../process/traversal');
-const TraversalStrategy = require('../process/traversal-strategy').TraversalStrategy;
+import Bytecode from '../process/bytecode.js';
+import { TraversalStrategy } from '../process/traversal-strategy.js';
+import { Traversal, Traverser } from '../process/traversal.js';
+import type { ConnectionOptions } from './connection.js';
+
+export type RemoteConnectionOptions = ConnectionOptions & { session?: string };
 
 /**
  * Represents an abstraction of a "connection" to a "server" that is capable of processing a traversal and
  * returning results.
  */
-class RemoteConnection {
+export class RemoteConnection {
   /**
    * @param {String} url The resource uri.
-   * @param {Object} [options] The connection options.
+   * @param {RemoteConnectionOptions} [options] The connection options.
    */
-  constructor(url, options = {}) {
-    this.url = url;
-    this.options = options;
-  }
+  constructor(
+    public url: string,
+    public options: RemoteConnectionOptions = {},
+  ) {}
 
   /**
    * Opens the connection, if its not already opened.
    * @returns {Promise}
    */
-  open() {
+  open(): Promise<void> {
     throw new Error('open() must be implemented');
   }
 
@@ -51,7 +55,7 @@ class RemoteConnection {
    * Returns true if connection is open
    * @returns {Boolean}
    */
-  get isOpen() {
+  get isOpen(): boolean {
     throw new Error('isOpen() must be implemented');
   }
 
@@ -60,7 +64,7 @@ class RemoteConnection {
    * <code>#createSession()</code> cannot be called so as to produce child sessions.
    * @returns {boolean}
    */
-  get isSessionBound() {
+  get isSessionBound(): boolean {
     return false;
   }
 
@@ -70,7 +74,7 @@ class RemoteConnection {
    * @param {Bytecode} bytecode
    * @returns {Promise} Returns a <code>Promise</code> that resolves to a <code>RemoteTraversal</code>.
    */
-  submit(bytecode) {
+  submit(bytecode: Bytecode | null): Promise<RemoteTraversal> {
     throw new Error('submit() must be implemented');
   }
 
@@ -79,7 +83,7 @@ class RemoteConnection {
    * If the connection is already session bound then this function should throw an exception.
    * @returns {RemoteConnection}
    */
-  createSession() {
+  createSession(): RemoteConnection {
     throw new Error('createSession() must be implemented');
   }
 
@@ -87,14 +91,14 @@ class RemoteConnection {
    * Submits a <code>Bytecode.GraphOp.commit</code> to the server and closes the connection.
    * @returns {Promise}
    */
-  commit() {
+  commit(): Promise<void> {
     throw new Error('commit() must be implemented');
   }
   /**
    * Submits a <code>Bytecode.GraphOp.rollback</code> to the server and closes the connection.
    * @returns {Promise}
    */
-  rollback() {
+  rollback(): Promise<void> {
     throw new Error('rollback() must be implemented');
   }
 
@@ -102,7 +106,7 @@ class RemoteConnection {
    * Closes the connection where open transactions will close according to the features of the graph provider.
    * @returns {Promise}
    */
-  close() {
+  close(): Promise<void> {
     throw new Error('close() must be implemented');
   }
 }
@@ -110,38 +114,36 @@ class RemoteConnection {
 /**
  * Represents a traversal as a result of a {@link RemoteConnection} submission.
  */
-class RemoteTraversal extends t.Traversal {
-  constructor(traversers, sideEffects) {
-    super(null, null, null);
-    this.traversers = traversers;
-    this.sideEffects = sideEffects;
+export class RemoteTraversal extends Traversal {
+  constructor(
+    public traversers: Traverser<any>[],
+    public sideEffects?: any[],
+  ) {
+    super(null, null, new Bytecode());
   }
 }
 
-class RemoteStrategy extends TraversalStrategy {
+export class RemoteStrategy extends TraversalStrategy {
   /**
    * Creates a new instance of RemoteStrategy.
    * @param {RemoteConnection} connection
    */
-  constructor(connection) {
+  constructor(public connection: RemoteConnection) {
     // gave this a fqcn that has a local "js:" prefix since this strategy isn't sent as bytecode to the server.
     // this is a sort of local-only strategy that actually executes client side. not sure if this prefix is the
     // right way to name this or not, but it should have a name to identify it.
     super('js:RemoteStrategy');
-    this.connection = connection;
   }
 
   /** @override */
-  apply(traversal) {
+  apply(traversal: Traversal) {
     if (traversal.traversers) {
       return Promise.resolve();
     }
 
-    return this.connection.submit(traversal.getBytecode()).then(function (remoteTraversal) {
+    return this.connection.submit(traversal.getBytecode()).then(function (remoteTraversal: RemoteTraversal) {
       traversal.sideEffects = remoteTraversal.sideEffects;
       traversal.traversers = remoteTraversal.traversers;
     });
   }
 }
-
-module.exports = { RemoteConnection, RemoteStrategy, RemoteTraversal };

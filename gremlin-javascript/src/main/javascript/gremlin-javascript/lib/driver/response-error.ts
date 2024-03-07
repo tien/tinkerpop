@@ -16,37 +16,41 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
 'use strict';
 
-/** @abstract */
-class SaslMechanismBase {
-  constructor(options) {
-    this.setopts(options);
-  }
+/**
+ * Represents an error obtained from the server.
+ */
+export default class ResponseError extends Error {
+  statusCode: number;
+  statusMessage: string;
+  statusAttributes: Map<string, string>;
 
-  /**
-   * Returns the name of the mechanism
-   */
-  get name() {
-    return null;
-  }
+  constructor(
+    message: string,
+    responseStatus: {
+      code: ResponseError['statusCode'];
+      message: ResponseError['statusMessage'];
+      attributes: ResponseError['statusAttributes'];
+    },
+  ) {
+    super(message);
+    this.name = 'ResponseError';
 
-  /**
-   * Set the options for the mechanism
-   * @param {object} options Options specific to the mechanism
-   */
-  setopts(options) {
-    this._options = options;
-  }
+    /**
+     * Gets the server status code.
+     */
+    this.statusCode = responseStatus.code;
 
-  /**
-   * @abstract
-   * Evaluates the challenge from the server and returns appropriate response
-   * @param {String} challenge Challenge string presented by the server
-   */
-  evaluateChallenge(challenge) {
-    throw new Error('evaluateChallenge should be implemented');
+    /**
+     * Gets the server status message.
+     */
+    this.statusMessage = responseStatus.message;
+
+    /**
+     * Gets the server status attributes as a Map (may contain provider specific status information).
+     */
+    this.statusAttributes = responseStatus.attributes || {};
   }
 }
-
-module.exports = SaslMechanismBase;

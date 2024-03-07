@@ -22,9 +22,9 @@
  */
 'use strict';
 
-const { Buffer } = require('buffer');
+import { Buffer } from 'buffer';
 
-module.exports = class UnspecifiedNullSerializer {
+export default class UnspecifiedNullSerializer {
   constructor(ioc) {
     this.ioc = ioc;
     this.ioc.serializers[ioc.DataType.UNSPECIFIED_NULL] = this;
@@ -74,4 +74,4 @@ module.exports = class UnspecifiedNullSerializer {
       throw this.ioc.utils.des_error({ serializer: this, args: arguments, cursor, err });
     }
   }
-};
+}
